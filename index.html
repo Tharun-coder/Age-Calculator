@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Date Methods</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+      integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <script>
+      let container = document.createElement("div");
+      container.classList.add("container");
+      container.style.backgroundColor = "black";
+      container.style.color = "white";
+      container.style.height = "400px";
+      let row = document.createElement("div");
+      row.classList.add("row");
+      let row1 = document.createElement("div");
+      row1.classList.add("row");
+
+      let col1 = document.createElement("div");
+      col1.classList.add("col");
+      col1.setAttribute("style", "margin:10px;text-align:center");
+      let col2 = document.createElement("div");
+      col2.classList.add("col");
+      col2.setAttribute("style", "margin:10px;text-align:center");
+      let h2 = document.createElement("h2");
+      h2.innerText = "AGE CALCULATOR";
+      h2.classList.add("col");
+      let label = document.createElement("label");
+      label.innerText = "Select your DOB";
+
+      let date_picker = document.createElement("input");
+      date_picker.setAttribute("type", "date");
+      date_picker.setAttribute("value", "Select DOB");
+      date_picker.classList.add("ml-4");
+
+      row.append(col1);
+      row1.appendChild(col2);
+      container.append(row, row1);
+      document.body.appendChild(container);
+
+      var d = new Date();
+      //   console.log(d);
+      //   console.log(d.getTime());
+      //   console.log(d.getFullYear());
+      //   console.log(d.getMonth());
+      //   console.log(d.getDay());
+      //   console.log(d.getDate());
+      //   console.log(d.getHours());
+      //   console.log(d.getMinutes());
+      //   console.log(d.getSeconds());
+      //   console.log(d.getMilliseconds());
+      var button = document.createElement("button");
+      button.setAttribute("value", "click");
+      button.setAttribute("class", "btn btn-primary btn-sm ml-4");
+      button.innerText = "Get Details";
+      button.id = "submit";
+      button.setAttribute("onclick", "foo()");
+
+      col1.append(h2);
+      col2.append(label, date_picker, button);
+
+      function foo() {
+        var inp = document.querySelector("input").value;
+
+        if (Date.parse(inp) < d) {
+          var inpDate = new Date(inp);
+
+          var yearDiff = d.getFullYear() - inpDate.getFullYear();
+          var monthDiff =
+            (d.getFullYear() - inpDate.getFullYear()) * 12 -
+            (inpDate.getMonth() + 1) +
+            (d.getMonth() + 1);
+
+          var milliSeconds = d.getTime() - inpDate.getTime();
+          var seconds = floor(milliSeconds, 1000);
+          var minutes = floor(seconds, 60);
+          var hours = floor(minutes, 60);
+          var dayCount = floor(hours, 24);
+
+          function floor(val1, val2) {
+            return Math.floor(val1 / val2);
+          }
+
+          let div = document.createElement("div");
+          div.classList.add("col");
+          div.setAttribute(
+            "style",
+            "text-align:left;padding-left:450px;margin-top:10px"
+          );
+
+          col2.appendChild(div);
+
+          div.innerHTML = `<p><b>Year Difference</b> - ${yearDiff} Years</p>
+        <p><b>Month Difference</b> - ${monthDiff} Months</p>
+        <p><b>Day Count</b> - ${Math.round(dayCount)} Days</p>
+        <p><b>Minutes Difference</b> - ${minutes} Minutes</p>
+        <p><b>Seconds Difference</b> - ${seconds} Seconds</p>
+        <p><b>Milliseconds Difference</b> - ${milliSeconds} Milliseconds</p>`;
+        } else {
+          alert("Entered Date should be less than the current date");
+        }
+      }
+    </script>
+  </body>
+</html>
